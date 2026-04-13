@@ -1,0 +1,63 @@
+# Vivado generated files
+*.jou
+*.log
+*.str
+*.pb
+*.xpr
+*.bit
+*.ltx
+*.mcs
+*.prm
+*.dcp
+*.rpt
+*.xml
+*.html
+*.js
+*.nav
+*.snr
+*.xsa
+
+# Vivado project directories
+.Xil/
+vivado*/
+*.runs/
+*.cache/
+*.hw/
+*.ip_user_files/
+*.sim/
+*.gen/
+*.srcs/
+*.bd/
+*.vitis/
+
+# Simulation output
+*.vcd
+*.wdb
+*.wcfg
+*.fdo
+transcript
+modelsim.ini
+work/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+venv/
+.env
+
+# Output plots
+*.png
+*.csv
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
+*~
