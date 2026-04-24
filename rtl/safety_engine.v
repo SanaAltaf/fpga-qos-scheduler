@@ -41,8 +41,8 @@ module safety_engine (
 
     // Dispatch from scheduler
     input  wire        start_i,
-    input  wire [15:0] distance_cm_i,
-    input  wire [15:0] speed_cm_s_i,
+    input  wire [`DIST_W-1:0] distance_cm_i,
+    input  wire [`SPEED_W-1:0] speed_cm_s_i,
 
     // Runtime config (from metrics.v config regs)
     input  wire [15:0] stop_dist_cfg_i,
@@ -80,7 +80,7 @@ module safety_engine (
     // Stage 2: Shift >>11, add stop_dist, compare
     // react_add = s1_mul[26:11]  (equivalent to >> 11, upper 16 bits)
     // -------------------------------------------------------------------------
-    wire [15:0] react_add  = s1_mul[26:11];
+    wire [15:0] react_add  = s1_mul >> 11;
     wire [16:0] threshold  = {1'b0, s1_stop} + {1'b0, react_add}; // 17-bit to avoid overflow
 
     always @(posedge clk_i) begin
