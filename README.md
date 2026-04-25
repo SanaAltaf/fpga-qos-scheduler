@@ -93,3 +93,17 @@ python host_tools/python_sender.py --port /dev/ttyUSB1 --demo all
 2. Implement your module, include `qos_defines.v` at top
 3. Write a testbench in `sim/tb_<module>.v`
 4. Open PR — 1 reviewer minimum, `top.v` and `qos_defines.v` need all 4
+
+
+
+
+
+TestBenches
+tb_ai_exec.v
+<img width="1516" height="972" alt="Screenshot 2026-04-24 171120" src="https://github.com/user-attachments/assets/1b354a07-3faf-450f-8a0b-fd736493d0fc" />
+<img width="1469" height="493" alt="Screenshot 2026-04-24 171059" src="https://github.com/user-attachments/assets/7f116aca-60ae-4d66-ab88-9c7772015990" />
+
+
+tb_schedular.v
+<img width="1489" height="967" alt="Screenshot 2026-04-24 170446" src="https://github.com/user-attachments/assets/c66b9972-367f-47e8-b476-4baf3ba6c015" />
+<img width="1906" height="1136" alt="Screenshot 2026-04-24 165823" src="https://github.com/user-attachments/assets/8565694e-41d3-41de-b18b-1cf13d9cc22c" />
