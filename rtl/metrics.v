@@ -1,47 +1,7 @@
 // =============================================================================
 // FILE: metrics.v
 // PROJECT: FPGA QoS Scheduler and Safety Watchdog (SPEC-001)
-// OWNER: Person D
-// =============================================================================
-//
-// PURPOSE:
-//   Accumulates all performance counters and runtime config registers.
-//   Serializes telemetry frames over UART TX on READ_METRICS request or
-//   periodic timer. Also stores SET_PARAM config values and drives them
-//   to safety_engine and watchdog.
-//
-// COUNTERS MAINTAINED:
-//   safety_task_count     [31:0]
-//   ai_task_count         [31:0]
-//   safety_lat_max_ms     [31:0]  worst-case: enqueue→safety_start
-//   safety_lat_sum_ms     [31:0]  sum for average (truncated at 32-bit for MVP)
-//   safety_lat_samples    [31:0]  denominator
-//   fifo_max_occupancy    [2:0]
-//   wdg_event_count       [15:0]
-//   emergency_event_count [31:0]
-//
-// TELEMETRY FRAME (sent on READ_METRICS or every TELEM_PERIOD_MS):
-//   [0xA5][0x20][LEN=28][... 7 x uint32 ...][0x00]
-//   Order: safety_cnt, ai_cnt, lat_max, lat_avg, fifo_max, wdg_cnt, emerg_cnt
-//
-// CONFIG REGISTERS (updated by SET_PARAM):
-//   cfg_stop_dist_o    → safety_engine
-//   cfg_wdg_timeout_o  → watchdog
-//
-// IMPLEMENTATION NOTES:
-//   TX serializer: 33-byte output buffer (SOF+TYPE+LEN+28B+CRC).
-//   Feed bytes to uart_tx one at a time, gated by tx_ready_i.
-//   Latency: on ev_safety_start_i, lat = ms_count_i - ev_task_enq_ms_i.
-//
-// PARAMETERS TO IMPLEMENT:
-//   TELEM_PERIOD_MS_DEF = 500
-//
-// VERIFICATION CHECKLIST:
-//   [ ] safety_lat_max_ms updates on each safety task.
-//   [ ] safety_lat_avg = sum/samples (integer).
-//   [ ] READ_METRICS produces correct 33-byte sequence.
-//   [ ] SET_PARAM updates cfg_stop_dist_o.
-//   [ ] Periodic TX triggers every TELEM_PERIOD_MS.
+// OWNER: Person Diego
 // =============================================================================
 
 `timescale 1ns/1ps
