@@ -1,29 +1,7 @@
 // =============================================================================
 // FILE: uart_rx.v
 // PROJECT: FPGA QoS Scheduler and Safety Watchdog (SPEC-001)
-// OWNER: Person A
-// =============================================================================
-//
-// PURPOSE:
-//   8N1 UART receiver at 115200 baud / 100 MHz clock.
-//   Deserializes incoming serial bytes and presents each with a 1-cycle strobe.
-//
-// FSM STATES: IDLE(0) → START(1) → DATA(2) → STOP(3)
-//
-// IMPLEMENTATION NOTES:
-//   1. Two-FF synchronizer on rx_i to prevent metastability.
-//   2. Sample at center of each bit (CYCLES_PER_BIT/2 offset from start bit edge).
-//   3. Glitch rejection: re-check rx_i at center of start bit; abort if high.
-//
-// PARAMETERS TO IMPLEMENT:
-//   CYCLES_PER_BIT = 868
-//   HALF_BIT       = 434
-//
-// VERIFICATION CHECKLIST:
-//   [ ] Correctly decodes 0x00, 0xFF, 0xA5, 0x55, 0xAA.
-//   [ ] rx_valid_o asserted for exactly 1 cycle.
-//   [ ] Back-to-back bytes without gaps.
-//   [ ] Glitch < half-bit wide rejected.
+// OWNER: Afrah
 // =============================================================================
 
 `timescale 1ns/1ps
