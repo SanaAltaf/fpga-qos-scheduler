@@ -1,42 +1,9 @@
 // =============================================================================
 // FILE: outputs.v
 // PROJECT: FPGA QoS Scheduler and Safety Watchdog (SPEC-001)
-// OWNER: Person C
+// OWNER: Person Sana
 // =============================================================================
 //
-// PURPOSE:
-//   Drives all physical FPGA outputs: LEDs, PWM pin, and brake signal.
-//   Translates internal signals into visible/measurable hardware outputs.
-//
-// REAL CAR INTEGRATION:
-//   pwm_o  → Connect to ESC signal wire (replaces RC receiver signal)
-//             Standard RC ESC: 1ms=full-brake, 1.5ms=neutral, 2ms=full-fwd
-//             50 Hz PWM period, duty controls throttle
-//             On emergency: output 1ms pulse (full brake) continuously
-//
-//   If not using ESC:
-//   pwm_o  → LED bar / buzzer to indicate braking intensity
-//   brake_o → Direct GPIO to relay that cuts motor power (safest for demo)
-//
-// LED MAPPING (Nexys A7):
-//   LD0 = emergency_i  (RED = danger)
-//   LD1 = failsafe_i   (YELLOW = watchdog fired)
-//   LD2 = sched_state[0]
-//   LD3 = sched_state[1]
-//   LD4-7 = FIFO occupancy bargraph (0..4 LEDs)
-//
-// PWM NOTES (MVP):
-//   8-bit free-running counter (period = 256 cycles ≈ 2.56 µs at 100 MHz)
-//   On emergency: duty forced to 0 (motor stop)
-//   Normal: duty driven by pwm_duty_i (from host via SET_PARAM or hardcoded)
-//
-// VERIFICATION CHECKLIST:
-//   [ ] emergency_i → led_o[0]=1, pwm_o=0, brake_o=1.
-//   [ ] failsafe_i  → led_o[1]=1.
-//   [ ] emergency_event_o is exactly 1 cycle wide on rising edge.
-//   [ ] PWM duty matches pwm_duty_i when not in emergency.
-//   [ ] LED bargraph correct for fifo_count 0,1,2,3,4.
-// =============================================================================
 
 `timescale 1ns/1ps
 `include "qos_defines.v"
