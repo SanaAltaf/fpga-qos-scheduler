@@ -1,39 +1,9 @@
 // =============================================================================
 // FILE: scheduler.v
 // PROJECT: FPGA QoS Scheduler and Safety Watchdog (SPEC-001)
-// OWNER: Person B
+// OWNER: Abinaya
 // =============================================================================
-//
-// PURPOSE:
-//   Strict-priority QoS arbiter. Scans all FIFO slots every clock, selects
-//   the highest-priority pending task (SAFETY always beats AI), and dispatches
-//   it to the appropriate execution engine.
-//
-//   In FAILSAFE mode (watchdog triggered), AI tasks are skipped entirely.
-//   Preemption: if an AI task is running and a SAFETY task arrives, ai_abort_o
-//   is asserted and the scheduler transitions to SAFETY immediately.
-//
-// SCHEDULING PRIORITY:
-//   1. SAFETY_SENSOR_UPDATE  ← always first
-//   2. AI_TASK               ← only when no safety pending AND not failsafe
-//
-// LATENCY MEASUREMENT:
-//   ev_task_enq_ms_o carries t_enq_ms of the dispatched task.
-//   metrics.v computes: latency = ms_count_i - ev_task_enq_ms_o
-//
-// FSM STATES: IDLE(00) → SCHED_SAFETY(01) → SCHED_AI(10) → SCHED_FAILSAFE(11)
-//
-// PARAMETERS TO IMPLEMENT:
-//   FIFO_DEPTH=4, FIFO_ADDR_W=2, TASK_W=104
-//
-// VERIFICATION CHECKLIST:
-//   [ ] SAFETY dispatched before AI when both pending.
-//   [ ] failsafe_i=1 → AI never dispatched.
-//   [ ] Idle when FIFO empty.
-//   [ ] Preemption: ai_abort_o on SAFETY arrival during AI execution.
-//   [ ] deq_idx_o matches selected slot.
-//   [ ] ev_task_enq_ms_o = t_enq_ms of dispatched task.
-// =============================================================================
+
 
 `timescale 1ns/1ps
 `include "qos_defines.v"
