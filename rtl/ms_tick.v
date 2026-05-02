@@ -1,27 +1,9 @@
 // =============================================================================
 // FILE: ms_tick.v
 // PROJECT: FPGA QoS Scheduler and Safety Watchdog (SPEC-001)
-// OWNER: Person D
+// OWNER: Person Diego
 // =============================================================================
-//
-// PURPOSE:
-//   Generates a 1 ms periodic pulse (ms_tick_o) and a free-running 32-bit
-//   millisecond counter (ms_count_o). All timeout and latency measurements
-//   use this as the time base.
-//
-// IMPLEMENTATION NOTES:
-//   Down-counter loaded with (CYCLES_PER_TICK-1). Asserts ms_tick_o for
-//   exactly ONE clock cycle when counter hits 0.
-//
-// PARAMETERS TO IMPLEMENT:
-//   CYCLES_PER_TICK = 100_000  (100 MHz / 1000 Hz)
-//
-// VERIFICATION CHECKLIST:
-//   [ ] First tick arrives in exactly CYCLES_PER_TICK cycles after reset.
-//   [ ] ms_count_o increments by 1 each tick.
-//   [ ] ms_tick_o asserted for exactly 1 clock cycle.
-//   [ ] No off-by-one on counter wrap.
-// =============================================================================
+
 
 `timescale 1ns/1ps
 `include "qos_defines.v"
