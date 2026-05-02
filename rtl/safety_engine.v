@@ -1,37 +1,8 @@
 // =============================================================================
 // FILE: safety_engine.v
 // PROJECT: FPGA QoS Scheduler and Safety Watchdog (SPEC-001)
-// OWNER: Person C
+// OWNER: Sana
 // =============================================================================
-//
-// PURPOSE:
-//   Deterministic emergency stop decision. Computes whether distance <= threshold
-//   where threshold = STOP_DIST_CM + speed_cm_s/10. Uses a 2-stage pipeline
-//   with multiply-then-shift approximation (no divider required).
-//
-// FORMULA:
-//   react_add ≈ (speed_cm_s * 205) >> 11   [error < 0.1%, no divider needed]
-//   threshold  = stop_dist_cfg + react_add
-//   emergency  = (distance_cm <= threshold)
-//
-// PIPELINE LATENCY: 2 clock cycles after start_i → done_o asserts.
-//
-// REAL CAR INTEGRATION NOTE:
-//   If attached to a real vehicle:
-//     - distance_cm comes from ultrasonic sensor / LiDAR (via UART sensor frame)
-//     - speed_cm_s comes from wheel encoder / IMU (via UART sensor frame)
-//     - emergency_o drives the physical brake relay / PWM via outputs.v
-//     - STOP_DIST_CM tunable at runtime via SET_PARAM from host laptop
-//
-// VERIFICATION CHECKLIST:
-//   [ ] dist=30, spd=0,   stop=50 → emergency (30<=50).
-//   [ ] dist=60, spd=0,   stop=50 → no emergency.
-//   [ ] dist=60, spd=100, stop=50 → emergency (60<=60).
-//   [ ] dist=62, spd=100, stop=50 → no emergency.
-//   [ ] done_o asserts exactly 2 cycles after start_i.
-//   [ ] emergency_o latches until next start_i.
-// =============================================================================
-
 `timescale 1ns/1ps
 `include "qos_defines.v"
 
