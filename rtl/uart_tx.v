@@ -1,23 +1,10 @@
 // =============================================================================
 // FILE: uart_tx.v
 // PROJECT: FPGA QoS Scheduler and Safety Watchdog (SPEC-001)
-// OWNER: Person A
+// OWNER: Afrah
 // =============================================================================
 //
-// PURPOSE:
-//   8N1 UART transmitter at 115200 baud. Serializes a byte on tx_valid_i
-//   strobe. tx_ready_o is HIGH when idle and ready for a new byte.
-//
-// FSM STATES: IDLE(0) → START(1) → DATA(2) → STOP(3)
-//
-// VERIFICATION CHECKLIST:
-//   [ ] Idle line HIGH.
-//   [ ] Start bit LOW for exactly CYCLES_PER_BIT.
-//   [ ] 8 data bits LSB-first, each CYCLES_PER_BIT wide.
-//   [ ] Stop bit HIGH for exactly CYCLES_PER_BIT.
-//   [ ] tx_ready_o deasserts during TX, reasserts after stop.
-//   [ ] Back-to-back bytes without gaps.
-// =============================================================================
+
 
 `timescale 1ns/1ps
 `include "qos_defines.v"
