@@ -1,32 +1,7 @@
 // =============================================================================
 // FILE: watchdog.v
 // PROJECT: FPGA QoS Scheduler and Safety Watchdog (SPEC-001)
-// OWNER: Person D
-// =============================================================================
-//
-// PURPOSE:
-//   AI heartbeat watchdog. If no AI_HEARTBEAT frame arrives within
-//   wdg_timeout_cfg_i milliseconds, assert failsafe_o. This forces the
-//   scheduler into safety-only mode until the host recovers.
-//
-//   REAL CAR NOTE: In a real deployment, failsafe means the FPGA switches
-//   the car to a slow, safe speed (or stops it) autonomously. The host
-//   (RPi running perception) must prove it's alive every 200 ms.
-//
-// IMPLEMENTATION NOTES:
-//   - Counter ms_since_last_ai increments on ms_tick_i.
-//   - Reset to 0 on each ai_heartbeat_i.
-//   - failsafe_o asserts when ms_since_last_ai >= wdg_timeout_cfg_i.
-//   - wdg_event_o is a 1-cycle pulse only on the RISING EDGE of failsafe.
-//   - wdg_event_count_o saturates at 0xFFFF.
-//
-// VERIFICATION CHECKLIST:
-//   [ ] Timely heartbeats → failsafe never asserts.
-//   [ ] 200 ms silence → failsafe asserts.
-//   [ ] wdg_event_o exactly 1 cycle wide.
-//   [ ] Heartbeat clears failsafe.
-//   [ ] wdg_event_count increments each trigger.
-//   [ ] ms_since_last_ai resets to 0 on heartbeat.
+// OWNER: Diego
 // =============================================================================
 
 `timescale 1ns/1ps
