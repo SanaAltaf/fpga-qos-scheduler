@@ -1,31 +1,9 @@
 // =============================================================================
 // FILE: task_fifo.v
 // PROJECT: FPGA QoS Scheduler and Safety Watchdog (SPEC-001)
-// OWNER: Person B
+// OWNER: Abinaya
 // =============================================================================
-//
-// PURPOSE:
-//   Slot-based synchronous task FIFO, depth 4. The scheduler can peek at ALL
-//   slots simultaneously to find the highest-priority task. Dequeue is by
-//   explicit slot index (not head-pointer), so the scheduler picks which slot
-//   to remove after scanning task types.
-//
-// SLOT STRUCTURE: 4 independent slots, each holding a TASK_W-bit descriptor.
-//   valid[i] = 1 means slot i holds a live task.
-//   On enqueue: write to the lowest-indexed invalid slot.
-//   On dequeue: clear valid[deq_idx_i].
-//
-// PARAMETERS TO IMPLEMENT:
-//   FIFO_DEPTH = 4, FIFO_ADDR_W = 2, TASK_W = 104
-//
-// VERIFICATION CHECKLIST:
-//   [ ] Enqueue 4 → full, enq_ready deasserts.
-//   [ ] Dequeue slot 2 while others occupied → correct slot cleared.
-//   [ ] Enqueue after dequeue fills freed slot.
-//   [ ] Overflow: 5th enqueue silently ignored.
-//   [ ] count_o tracks correctly.
-//   [ ] peek outputs reflect state combinationally.
-// =============================================================================
+=============================================================================
 
 `timescale 1ns/1ps
 `include "qos_defines.v"
