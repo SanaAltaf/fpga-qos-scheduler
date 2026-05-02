@@ -1,42 +1,9 @@
 // =============================================================================
 // FILE: frame_parser.v
 // PROJECT: FPGA QoS Scheduler and Safety Watchdog (SPEC-001)
-// OWNER: Person A
+// OWNER: Afrah
 // =============================================================================
-//
-// PURPOSE:
-//   Binary frame parser FSM. Consumes bytes from uart_rx and assembles
-//   complete protocol frames. On a valid frame emits either:
-//     - A task_desc_t for the FIFO (SAFETY / AI_TASK / AI_HB)
-//     - A metrics request or SET_PARAM command (directly to metrics.v)
-//
-// FRAME FORMAT: [0xA5][TYPE][LEN][PAYLOAD 0..N][CRC8=0x00 stub]
-//
-// FSM STATES:
-//   WAIT_SOF(0) → RECV_TYPE(1) → RECV_LEN(2) → RECV_PAYLOAD(3) → EMIT(4)
-//
-// PARAMETERS TO IMPLEMENT:
-//   MAX_PAYLOAD = 8  (bytes; reject frames with LEN > this)
-//   CRC_ENABLE  = 0  (stub: always pass for MVP)
-//
-// INTERFACE CONTRACT (outputs to frame_parser):
-//   enq_valid_o / enq_task_o / enq_ready_i  → task_fifo
-//   ai_heartbeat_o                           → watchdog
-//   rd_metrics_req_o                         → metrics
-//   set_param_valid_o / _id_o / _val_o       → metrics
-//   frame_err_o                              → debug LED
-//
-// VERIFICATION CHECKLIST:
-//   [ ] Valid SAFETY frame → correct task fields.
-//   [ ] Valid AI_TASK frame → correct work_cycles.
-//   [ ] Unknown TYPE → frame_err, return to WAIT_SOF.
-//   [ ] LEN > MAX_PAYLOAD → frame_err, return to WAIT_SOF.
-//   [ ] Back-pressure (enq_ready=0) → enq_valid held.
-//   [ ] Back-to-back frames both emitted.
-//   [ ] ai_heartbeat_o pulses on TYPE_AI_HB.
-//   [ ] rd_metrics_req_o pulses on TYPE_RD_MET.
-//   [ ] set_param_* correct on TYPE_SET_PAR.
-// =============================================================================
+
 
 `timescale 1ns/1ps
 `include "qos_defines.v"
