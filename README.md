@@ -93,3 +93,34 @@ python host_tools/python_sender.py --port /dev/ttyUSB1 --demo all
 2. Implement your module, include `qos_defines.v` at top
 3. Write a testbench in `sim/tb_<module>.v`
 4. Open PR — 1 reviewer minimum, `top.v` and `qos_defines.v` need all 4
+
+
+
+
+
+TestBenches
+tb_ai_exec.v
+<img width="1516" height="972" alt="Screenshot 2026-04-24 171120" src="https://github.com/user-attachments/assets/1b354a07-3faf-450f-8a0b-fd736493d0fc" />
+<img width="1469" height="493" alt="Screenshot 2026-04-24 171059" src="https://github.com/user-attachments/assets/7f116aca-60ae-4d66-ab88-9c7772015990" />
+
+
+tb_schedular.v
+<img width="1489" height="967" alt="Screenshot 2026-04-24 170446" src="https://github.com/user-attachments/assets/c66b9972-367f-47e8-b476-4baf3ba6c015" />
+<img width="1906" height="1136" alt="Screenshot 2026-04-24 165823" src="https://github.com/user-attachments/assets/8565694e-41d3-41de-b18b-1cf13d9cc22c" />
+
+tb_FIFO.v
+<img width="975" height="851" alt="image" src="https://github.com/user-attachments/assets/511c61a7-9772-4ef3-b27e-bdd27d3bb661" />
+<img width="975" height="378" alt="image" src="https://github.com/user-attachments/assets/fa6d7ee0-73f1-4fec-a8d6-9af061f66572" />
+
+tb_safey_Engine.v
+<img width="975" height="336" alt="image" src="https://github.com/user-attachments/assets/32461cba-2562-4038-9144-35c36101f5a7" />
+
+tb_ms_tick.v
+<img width="997" height="159" alt="tb_ms_tick" src="https://github.com/user-attachments/assets/0d3eeb00-248a-4c35-8da2-ebb1cd6d29d8" />
+
+tb_watchdog.v
+<img width="1289" height="244" alt="tb_watchdog" src="https://github.com/user-attachments/assets/059b6de0-123e-42fc-a738-16004bc25a99" />
+
+tb_metrics.v
+<img width="1372" height="609" alt="tb_metrics" src="https://github.com/user-attachments/assets/7075580b-8e00-4510-b1c5-6869ef5add14" />
+
